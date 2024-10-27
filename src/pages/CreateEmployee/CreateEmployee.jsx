@@ -7,6 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import states from "../../data/states";
+import {useAddEmployeeMutation} from "../../services/employeeApi.js";
 
 const stateOptions = states.map(state => ({
     value: state.abbreviation,
@@ -22,6 +23,8 @@ const departmentOptions = [
 ];
 
 const CreateEmployee = () => {
+    const [addEmployee, { isLoading, error}] = useAddEmployeeMutation();
+
     const [isModalOpen, setModalOpen] = useState(false);
 
     const openModal = () => setModalOpen(true);
@@ -63,10 +66,31 @@ const CreateEmployee = () => {
         });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(addEmployee(formData));
-        openModal();
+        const employeeData = {
+            ...formData,
+            state: formData.state.value,
+            department: formData.department.value
+        }
+        try {
+            await addEmployee(employeeData).unwrap();
+            openModal();
+            // reinitalise the form
+            setFormData({
+                firstName: "",
+                lastName: "",
+                dateOfBirth: null,
+                startDate: null,
+                street: "",
+                city: "",
+                state: stateOptions[0],
+                zipCode: "",
+                department: departmentOptions[0],
+            });
+        } catch (err) {
+            console.error("Error adding employee", err);
+        }
     }
 
     return (
