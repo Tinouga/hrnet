@@ -1,13 +1,12 @@
-import {useDispatch} from "react-redux";
 import {useState} from "react";
-import {addEmployee} from "../../features/employeeSlice.js";
 import styles from "./CreateEmployee.module.scss";
-import Modal from 'react-modal';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import states from "../../data/states";
 import {useAddEmployeeMutation} from "../../services/employeeApi.js";
+import {Link} from "react-router-dom";
+import Modal from '@angeldevvvv/react-modal';
 
 const stateOptions = states.map(state => ({
     value: state.abbreviation,
@@ -29,8 +28,6 @@ const CreateEmployee = () => {
 
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
-
-    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -70,6 +67,8 @@ const CreateEmployee = () => {
         e.preventDefault();
         const employeeData = {
             ...formData,
+            dateOfBirth: formData.dateOfBirth ? formData.dateOfBirth.toISOString().split('T')[0] : "",
+            startDate: formData.startDate ? formData.startDate.toISOString().split('T')[0] : "",
             state: formData.state.value,
             department: formData.department.value
         }
@@ -99,7 +98,7 @@ const CreateEmployee = () => {
                 <h1>HRnet</h1>
             </div>
             <div className={styles.container}>
-                <a href="employee-list.html">View Current Employees</a>
+                <Link to={'employees-list'}>View Current Employees</Link>
                 <h2>Create Employee</h2>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="firstName">First Name</label>

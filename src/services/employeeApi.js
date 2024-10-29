@@ -35,7 +35,7 @@ export const employeeApi = createApi({
             providesTags: (result) =>
                 result ?
                     [
-                        ...result.data.map(({id}) => ({type: 'Employees', id})),
+                        ...result.map(({id}) => ({type: 'Employees', id})),
                         {type: 'Employees', id: 'LIST'}
                     ] :
                     [{type: 'Employees', id: 'LIST'}]
