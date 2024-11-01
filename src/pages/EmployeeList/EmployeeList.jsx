@@ -98,7 +98,7 @@ const EmployeeList = () => {
                         value={globalFilter ?? ''}
                         onChange={e => setGlobalFilter(e.target.value)}
                     />
-                    <table>
+                    <table className={styles.table}>
                         <thead>
                         {table.getHeaderGroups().map(headerGroup => (
                             <tr key={headerGroup.id}>
