@@ -1,8 +1,23 @@
-# React + Vite
+# Projet n°14 : Faites passer une librairie jQuery vers React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![WealthHealth](https://user.oc-static.com/upload/2024/02/21/17085055322514_Capture%20d%E2%80%99e%CC%81cran%202024-02-21%20a%CC%80%2009.52.02.png)
 
-Currently, two official plugins are available:
+https://openclassrooms.com/fr/paths/516/projects/815/scenario
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Run the project
+
+```bash
+npm run dev
+```
+
+or 
+
+```bash
+vite
+```
+
+### Generate the employees fake data
+
+```bash
+npm run generate:employees
+```
