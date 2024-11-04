@@ -5,7 +5,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import states from "../../data/states";
 import {useAddEmployeeMutation} from "../../services/employeeApi.js";
-import {Link} from "react-router-dom";
 import Modal from '@angeldevvvv/react-modal';
 
 const stateOptions = states.map(state => ({
@@ -94,19 +93,15 @@ const CreateEmployee = () => {
 
     return (
         <>
-            <div className={styles.title}>
-                <h1>HRnet</h1>
-            </div>
             <div className={styles.container}>
-                <Link to={'employees-list'}>View Current Employees</Link>
                 <h2>Create Employee</h2>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="firstName">First Name</label>
                     <input type="text" name="firstName" id="firstName" value={formData.firstName}
-                           onChange={handleInputChange}/>
+                           onChange={handleInputChange} className={styles.input}/>
 
                     <label htmlFor="lastName">Last Name</label>
-                    <input type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleInputChange}/>
+                    <input type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleInputChange} className={styles.input}/>
 
                     <label htmlFor="dateOfBirth">Date of Birth</label>
                     <DatePicker
@@ -117,6 +112,7 @@ const CreateEmployee = () => {
                         placeholderText="dd/MM/yyyy"
                         maxDate={new Date()}
                         required
+                        className={styles.input}
                     />
 
                     <label htmlFor="startDate">Start Date</label>
@@ -127,15 +123,16 @@ const CreateEmployee = () => {
                         dateFormat="dd/MM/yyyy"
                         placeholderText="dd/MM/yyyy"
                         required
+                        className={styles.input}
                     />
 
                     <fieldset className={styles.address}>
                         <legend>Address</legend>
                         <label htmlFor="street">Street</label>
-                        <input type="text" name="street" id="street" value={formData.street} onChange={handleInputChange}/>
+                        <input type="text" name="street" id="street" value={formData.street} onChange={handleInputChange} className={styles.input}/>
 
                         <label htmlFor="city">City</label>
-                        <input type="text" name="city" id="city" value={formData.city} onChange={handleInputChange}/>
+                        <input type="text" name="city" id="city" value={formData.city} onChange={handleInputChange} className={styles.input}/>
 
                         <label htmlFor="state">State</label>
                         <Select
@@ -143,11 +140,13 @@ const CreateEmployee = () => {
                             options={stateOptions}
                             value={formData.state}
                             onChange={(option) => handleSelectChange(option, 'state')}
+                            className={styles.input}
                             />
 
                         <label htmlFor="zipCode">Zip Code</label>
                         <input type="number" name="zipCode" id="zipCode" value={formData.zipCode}
-                               onChange={handleInputChange}/>
+                               onChange={handleInputChange}
+                               className={styles.input}/>
                     </fieldset>
 
                     <label htmlFor="department">Department</label>
@@ -156,15 +155,17 @@ const CreateEmployee = () => {
                         options={departmentOptions}
                         value={formData.department}
                         onChange={(option) => handleSelectChange(option, 'department')}
+                        className={styles.input}
                     />
 
-                    <button type="submit">Save</button>
+                    <button type="submit" className={styles.saveBtn}>Save</button>
                 </form>
             </div>
             <Modal
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 fadeDuration={2000}
+                modalClass={styles.modal}
             >
                 <h2 id="modal-title">Employee created</h2>
                 <p id="modal-description">The employee has been successfully created.</p>

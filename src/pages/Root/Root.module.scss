@@ -1,0 +1,41 @@
+@use "../../styles/mixins" as *;
+
+// Reset
+:global {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  ul, ol {
+    list-style: none;
+  }
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.mainContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 2.813rem 6.25rem;
+  align-items: center;
+
+  > * {
+    width: 100%;
+    max-width: 1240px;
+  }
+
+  @include tablet {
+    padding: 2rem 2.25rem;
+  }
+
+  @include mobile {
+    padding: 1.25rem 1.25rem 1.688rem 1.25rem;
+  }
+}

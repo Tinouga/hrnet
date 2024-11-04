@@ -11,7 +11,7 @@
     "generate:employees": "node scripts/generateEmployees.js"
   },
   "dependencies": {
-    "@angeldevvvv/react-modal": "^1.0.0",
+    "@angeldevvvv/react-modal": "^1.0.2",
     "@reduxjs/toolkit": "^2.3.0",
     "@tanstack/react-table": "^8.20.5",
     "date-fns": "^4.1.0",

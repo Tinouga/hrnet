@@ -8,7 +8,6 @@ import {
     getPaginationRowModel, getSortedRowModel,
     useReactTable
 } from "@tanstack/react-table";
-import {Link} from "react-router-dom";
 
 const EmployeeList = () => {
     const {data: employees, error, isLoading} = useGetEmployeesQuery()
@@ -87,92 +86,99 @@ const EmployeeList = () => {
     });
 
     return (
-        <div>
+        <div className={styles.container}>
+            <h2>Employees list</h2>
             {isLoading && <p>Chargement des données...</p>}
             {error && <p>Erreur lors du chargement des données.</p>}
             {!isLoading && !error && data.length > 0 && (
                 <>
-                    <input
-                        type="search"
-                        placeholder="Search all columns"
-                        value={globalFilter ?? ''}
-                        onChange={e => setGlobalFilter(e.target.value)}
-                    />
-                    <table className={styles.table}>
-                        <thead>
-                        {table.getHeaderGroups().map(headerGroup => (
-                            <tr key={headerGroup.id}>
-                                {headerGroup.headers.map(header => (
-                                    <th key={header.id}>
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )}
-                                    </th>
-                                ))}
-                            </tr>
-                        ))}
-                        </thead>
-                        <tbody>
-                        {table.getRowModel().rows.map(row => (
-                            <tr key={row.id}>
-                                {row.getVisibleCells().map(cell => (
-                                    <td key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                        </tbody>
+                    <div className={styles.searchContainer}>
+                        <input
+                            type="search"
+                            placeholder="Search all columns"
+                            value={globalFilter ?? ''}
+                            onChange={e => setGlobalFilter(e.target.value)}
+                        />
+                    </div>
+                    <div className={styles.tableContainer}>
+                        <table>
+                            <thead>
+                            {table.getHeaderGroups().map(headerGroup => (
+                                <tr key={headerGroup.id}>
+                                    {headerGroup.headers.map(header => (
+                                        <th key={header.id}>
+                                            {header.isPlaceholder
+                                                ? null
+                                                : flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                )}
+                                        </th>
+                                    ))}
+                                </tr>
+                            ))}
+                            </thead>
+                            <tbody>
+                            {table.getRowModel().rows.map(row => (
+                                <tr key={row.id}>
+                                    {row.getVisibleCells().map(cell => (
+                                        <td key={cell.id}>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                            </tbody>
 
-                    </table>
-                    <div>
-                        <button
-                            onClick={() => table.firstPage()}
-                            disabled={!table.getCanPreviousPage()}
-                        >
-                            {'<<'}
-                        </button>
-                        <button
-                            onClick={() => table.previousPage()}
-                            disabled={!table.getCanPreviousPage()}
-                        >
-                            {'<'}
-                        </button>
-                        <button
-                            onClick={() => table.nextPage()}
-                            disabled={!table.getCanNextPage()}
-                        >
-                            {'>'}
-                        </button>
-                        <button
-                            onClick={() => table.lastPage()}
-                            disabled={!table.getCanNextPage()}
-                        >
-                            {'>>'}
-                        </button>
-                        <span>
+                        </table>
+                    </div>
+                    <div className={styles.pagination}>
+                        <div className={styles.paginationControls}>
+                            <button
+                                onClick={() => table.firstPage()}
+                                disabled={!table.getCanPreviousPage()}
+                            >
+                                {'<<'}
+                            </button>
+                            <button
+                                onClick={() => table.previousPage()}
+                                disabled={!table.getCanPreviousPage()}
+                            >
+                                {'<'}
+                            </button>
+                            <button
+                                onClick={() => table.nextPage()}
+                                disabled={!table.getCanNextPage()}
+                            >
+                                {'>'}
+                            </button>
+                            <button
+                                onClick={() => table.lastPage()}
+                                disabled={!table.getCanNextPage()}
+                            >
+                                {'>>'}
+                            </button>
+                        </div>
+                        <span className={styles.pageInfo}>
                             Page{' '}
                             <strong>
                                 {`${table.getState().pagination.pageIndex + 1} of ${table.getPageCount().toLocaleString()}`}
                             </strong>
                         </span>
-                        <span>
-                            | Go to page:
+                        <span className={styles.goToPage}>
+                            Go to page:
                             <input
                                 type="number"
                                 min="1"
                                 max={table.getPageCount()}
                                 defaultValue={table.getState().pagination.pageIndex + 1}
                                 onChange={e => {
-                                  const page = e.target.value ? Number(e.target.value) - 1 : 0
-                                  table.setPageIndex(page)
+                                    const page = e.target.value ? Number(e.target.value) - 1 : 0
+                                    table.setPageIndex(page)
                                 }}
                             />
                         </span>
-                        <span>
+                        <span className={styles.pageSize}>
                             Show{' '}
                             <select
                                 value={table.getState().pagination.pageSize}
@@ -190,7 +196,6 @@ const EmployeeList = () => {
                 </>
             )}
             {!isLoading && !error && data.length === 0 && <p>Aucune donnée disponible.</p>}
-            <Link to="/">Home</Link>
         </div>
     )
 };
