@@ -6,7 +6,7 @@
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: $modal-bg;
+  background-color: $background-color;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   border-radius: 8px;
 
@@ -86,7 +86,7 @@ label {
 // styling for the modal
 .modal {
   padding: 2rem;
-  background-color: $modal-bg;
+  background-color: $background-color;
   border-radius: 8px;
   text-align: center;
 
@@ -97,6 +97,6 @@ label {
 
   p {
     font-size: 1rem;
-    color: #555555;
+    color: $secondary-text-color;
   }
 }
